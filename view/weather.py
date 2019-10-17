@@ -8,24 +8,37 @@ def getWeather(city, country_code):
     try:
         data = requests.get(url, params=query).json()
         forecast_items = data['list']
-
+        printcount = 0
+        values = [0,8,16,24,32]
+        daycount = 1
+        print(f"\n5 Day Forecast for {city}\n")
         for forecast in forecast_items:
-            timestamp = forecast['dt']
-            date = datetime.fromtimestamp(timestamp)
-            # I choose to convert the timestamp in to a datetime
-            # to get a local Minneapolis time, my program is currently built
-            # to be used in this area for educational purposed and not deployed to others around the world yet
-            temp = forecast['main']['temp']
-            description = forecast['weather'][0]['description']
-            wind_speed = forecast['wind']['speed']
+            if (printcount in values):
+                timestamp = forecast['dt']
+                date = datetime.fromtimestamp(timestamp)
+                weather_description = forecast['weather'][0]['description']
+                temp_f = forecast['main']['temp']
+                wind_speed = forecast['wind']['speed']
+                if (daycount) == 1:
+                    print("Today")
+                else:
+                    print(f'Day{daycount}')
+                print(f'Weather description: {weather_description}')
+                print(f'Temperature: {temp_f:.2f} F')
+                print(f'Wind speed: {wind_speed} \n')
+                daycount += 1
 
-            city = city.capitalize()
-            print(
-                f'At {date} in {city} the temp is {temp:.2f}F. \n and {description} with a wind speed of {wind_speed:.1f}mph')
+            printcount += 1
+
+
+        return True
 
     except:
-        print("Please enter a valid city/country code")
-        getWeather()
+        print("Please enter a valid city/country code\n")
+        return False
+
+
+
 
 
 

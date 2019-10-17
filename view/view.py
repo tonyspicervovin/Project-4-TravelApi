@@ -11,13 +11,40 @@ class View:
               " the weather, top restaurants\n andconcerts")
         print("You can find country codes at https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes ")
         city, country_code = self.getInput()
-        getWeather(city, country_code)
+        while True:
+            choice = int(input("Menu \n1:5 Day Weather Forecast \n2:Restaurants \n3:Concerts \n4:Exit\n"))
+            if choice == 1:
+                self.showWeather(city,country_code)
+            elif choice == 2:
+                self.showRestaurant
+            elif choice == 3:
+                self.showConcerts
+            elif choice == 4:
+                break
+            else:
+                print("Unknown option selected")
+
+
+
+
+
+    def showWeather(self, city, country_code):
+        got_data = getWeather(city, country_code)
+        if got_data is False:
+            self.show_menu()
+    def showRestaurant(self):
+
+        return None
+
+    def showConcerts(self):
+
+        return None
 
     def getInput(self):
         city = input("City: ")
         country_code = input("Country Code: ")
         return city, country_code
-        # recieving user input
+        # receiving user input
 
 
 
